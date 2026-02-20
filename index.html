@@ -1,0 +1,831 @@
+﻿<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Homepage - Rivepage</title>
+  <meta name="description" content="Rivebase giÃºp club váº­n hÃ nh Rake Counter realtime: Dealer/Agent/Owner Panel, bÃ¡o cÃ¡o & kiá»ƒm soÃ¡t profit rÃµ rÃ ng." />
+
+  <style>
+    :root{
+      --bg:#070A12;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.08);
+      --txt:#EAF0FF;
+      --muted: rgba(234,240,255,.68);
+      --line: rgba(255,255,255,.12);
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+      --radius2: 26px;
+      --max: 1120px;
+      --btn:#ffffff;
+      --btnTxt:#0A0F1F;
+      --ok:#7CFFB2;
+      --warn:#FFE08A;
+      --bad:#FF8AA1;
+      --accent1:#7C3AED;
+      --accent2:#22D3EE;
+      --accent3:#60A5FA;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--txt);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(124,58,237,.35), transparent 55%),
+        radial-gradient(900px 600px at 90% 0%, rgba(34,211,238,.22), transparent 55%),
+        radial-gradient(900px 600px at 70% 120%, rgba(96,165,250,.18), transparent 60%),
+        var(--bg);
+      overflow-x:hidden;
+    }
+
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--max); margin:0 auto; padding:0 18px}
+
+    /* Topbar */
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      background: linear-gradient(to bottom, rgba(7,10,18,.92), rgba(7,10,18,.60));
+      backdrop-filter: blur(12px);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:700; letter-spacing:.2px;
+    }
+    .logo{
+      width:36px; height:36px; border-radius:12px;
+      background:
+        radial-gradient(12px 12px at 30% 30%, rgba(255,255,255,.55), transparent 60%),
+        linear-gradient(135deg, rgba(124,58,237,.95), rgba(34,211,238,.85));
+      box-shadow: 0 12px 35px rgba(124,58,237,.22);
+      border:1px solid rgba(255,255,255,.18);
+    }
+    .brand small{display:block; font-weight:600; color:var(--muted); letter-spacing:0}
+
+    .navlinks{
+      display:flex; gap:16px; align-items:center;
+    }
+    .navlinks a{
+      font-size:14px; color:var(--muted);
+      padding:8px 10px; border-radius:12px;
+      border:1px solid transparent;
+    }
+    .navlinks a:hover{
+      color:var(--txt);
+      border-color:rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+    }
+
+    .actions{display:flex; gap:10px; align-items:center}
+    .langSwitch{
+      display:inline-flex;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:14px;
+      overflow:hidden;
+      background: rgba(255,255,255,.04);
+    }
+    .langBtn{
+      border:none;
+      background:transparent;
+      color:var(--muted);
+      font-weight:700;
+      font-size:12px;
+      padding:9px 11px;
+      cursor:pointer;
+      transition: background .15s ease, color .15s ease;
+    }
+    .langBtn.active{
+      background: rgba(255,255,255,.18);
+      color:var(--txt);
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color:var(--txt);
+      font-weight:650;
+      font-size:14px;
+      cursor:pointer;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.08)}
+    .btn.primary{
+      background: var(--btn);
+      color: var(--btnTxt);
+      border-color: rgba(255,255,255,.30);
+    }
+    .btn.primary:hover{background: rgba(255,255,255,.92)}
+    .btn.ghost{background:transparent}
+
+    /* Hero */
+    .hero{
+      padding:56px 0 10px;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.25fr .95fr;
+      gap:22px;
+      align-items:start;
+    }
+    .tag{
+      display:inline-flex; align-items:center; gap:10px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:13px;
+      width:fit-content;
+    }
+    .dot{
+      width:9px;height:9px;border-radius:99px;background:var(--ok);
+      box-shadow: 0 0 0 6px rgba(124,255,178,.10);
+    }
+    h1{
+      margin:16px 0 10px;
+      font-size: 44px;
+      line-height:1.06;
+      letter-spacing:-.6px;
+    }
+    .sub{
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.6;
+      max-width:54ch;
+    }
+    .heroCTA{display:flex; gap:10px; margin-top:18px; flex-wrap:wrap}
+    .mini{
+      margin-top:14px;
+      display:flex; gap:14px; flex-wrap:wrap;
+      color:var(--muted); font-size:13px;
+    }
+    .mini span{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:8px 10px; border-radius:999px;
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .check{
+      width:18px;height:18px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      display:inline-flex; align-items:center; justify-content:center;
+      background: rgba(124,255,178,.10);
+      color: var(--ok);
+      font-weight:900;
+      font-size:12px;
+    }
+
+    /* Card */
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+    }
+    .heroCard{
+      padding:16px;
+      position:relative;
+      overflow:hidden;
+    }
+    .heroCard:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(400px 240px at 70% 20%, rgba(34,211,238,.18), transparent 60%),
+        radial-gradient(420px 260px at 20% 80%, rgba(124,58,237,.18), transparent 60%);
+      pointer-events:none;
+    }
+    .heroCard > *{position:relative}
+    .mockTop{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px; padding:10px 12px;
+      border-radius: 16px;
+      background: rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      color: var(--muted);
+      font-size:12.5px;
+      white-space:nowrap;
+    }
+    .status{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      background: rgba(124,255,178,.10);
+      border: 1px solid rgba(124,255,178,.18);
+      color: var(--ok);
+      font-size:12.5px;
+      white-space:nowrap;
+    }
+
+    .mockBody{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+    }
+    .statRow{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    .tile{
+      padding:14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .kpi{font-size:12px;color:var(--muted)}
+    .val{
+      margin-top:6px;
+      font-size:20px;
+      font-weight:800;
+      letter-spacing:-.3px;
+    }
+    .trend{
+      margin-top:6px;
+      font-size:12px;
+      color:var(--muted);
+    }
+    .bar{
+      margin-top:10px;
+      height:10px; border-radius:999px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      overflow:hidden;
+    }
+    .bar > i{
+      display:block; height:100%;
+      width:68%;
+      background: linear-gradient(90deg, rgba(124,58,237,.9), rgba(34,211,238,.85));
+      border-radius:999px;
+    }
+
+    /* Sections */
+    section{padding:42px 0}
+    .sectionHead{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:16px; margin-bottom:16px;
+    }
+    .sectionHead h2{
+      margin:0;
+      font-size:24px;
+      letter-spacing:-.3px;
+    }
+    .sectionHead p{
+      margin:0; color:var(--muted); max-width:60ch; font-size:14.5px; line-height:1.6;
+    }
+
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    .feature{
+      padding:16px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.10);
+      min-height: 150px;
+    }
+    .icon{
+      width:38px;height:38px;border-radius:14px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:900;
+      margin-bottom:10px;
+    }
+    .feature h3{margin:0 0 8px; font-size:16px}
+    .feature p{margin:0; color:var(--muted); font-size:13.8px; line-height:1.6}
+
+    .steps{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      align-items:start;
+    }
+    .stepCard{
+      padding:16px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+    }
+    .step{
+      display:flex; gap:12px; padding:12px 0;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .step:last-child{border-bottom:none}
+    .num{
+      width:28px; height:28px; border-radius:999px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:900;
+      color:rgba(234,240,255,.85);
+      flex:0 0 auto;
+    }
+    .step b{display:block; font-size:14px; margin-bottom:3px}
+    .step span{display:block; font-size:13px; color:var(--muted); line-height:1.55}
+
+    .cta{
+      padding:22px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(255,255,255,.14);
+      background:
+        radial-gradient(800px 260px at 20% 10%, rgba(124,58,237,.22), transparent 55%),
+        radial-gradient(700px 260px at 85% 40%, rgba(34,211,238,.18), transparent 55%),
+        rgba(255,255,255,.04);
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px;
+    }
+    .cta h3{margin:0 0 6px; font-size:18px}
+    .cta p{margin:0; color:var(--muted); font-size:14px; line-height:1.6; max-width:68ch}
+    footer{
+      padding:26px 0 40px;
+      color:var(--muted);
+      font-size:13px;
+      border-top:1px solid rgba(255,255,255,.08);
+      margin-top:24px;
+    }
+    .foot{
+      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      align-items:center;
+    }
+    .foot a{color:rgba(234,240,255,.78)}
+    .foot a:hover{color:var(--txt)}
+
+    /* Mobile */
+    .menuBtn{display:none}
+    @media (max-width: 900px){
+      h1{font-size:36px}
+      .heroGrid{grid-template-columns:1fr; gap:14px}
+      .grid3{grid-template-columns:1fr}
+      .steps{grid-template-columns:1fr}
+      .navlinks{display:none}
+      .menuBtn{display:inline-flex}
+      .navlinks.open{
+        display:flex;
+        position:absolute;
+        left:18px; right:18px; top:62px;
+        flex-direction:column;
+        background: rgba(7,10,18,.88);
+        border:1px solid rgba(255,255,255,.12);
+        border-radius: 18px;
+        padding:10px;
+        backdrop-filter: blur(12px);
+      }
+      .navlinks.open a{width:100%}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="#">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            Rivebase
+            <small data-i18n="brandSub">Realtime Counter System</small>
+          </div>
+        </a>
+
+        <div class="navlinks" id="navlinks">
+          <a href="#features" data-i18n="navFeatures">Tính năng</a>
+          <a href="#how" data-i18n="navHow">Cách hoạt động</a>
+          <a href="#security" data-i18n="navSecurity">Vận hành & bảo mật</a>
+          <a href="docs.html" data-i18n="navDocs">Tài liệu kỹ thuật</a>
+        </div>
+
+        <div class="actions">
+          <div class="langSwitch" aria-label="Language switcher">
+            <button class="langBtn active" id="langVi" type="button">VI</button>
+            <button class="langBtn" id="langEn" type="button">EN</button>
+          </div>
+          <button class="btn ghost menuBtn" id="menuBtn" data-i18n="menu">Menu</button>
+          <a class="btn" href="docs.html" data-i18n="docs">Docs</a>
+          <a class="btn primary" href="#cta" data-i18n="getStarted">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="container">
+      <div class="heroGrid">
+        <div>
+          <div class="tag"><span class="dot"></span> Live operations â€” Realtime tracking</div>
+          <h1>Rivebase giÃºp club váº­n hÃ nh <br/>rake & profit rÃµ rÃ ng theo thá»i gian thá»±c.</h1>
+          <p class="sub">
+            Bá»™ panel cho <b>Owner / Supervisor / Agent / Dealer / Player</b> Ä‘á»ƒ ghi nháº­n, Ä‘á»‘i soÃ¡t vÃ  bÃ¡o cÃ¡o.
+            Tá»‘i Æ°u cho váº­n hÃ nh nhiá»u bÃ n, nhiá»u session, nhiá»u club trong ecosystem.
+          </p>
+
+          <div class="heroCTA">
+            <a class="btn primary" href="docs.html">Xem hÆ°á»›ng dáº«n ká»¹ thuáº­t</a>
+            <a class="btn" href="#features">KhÃ¡m phÃ¡ tÃ­nh nÄƒng</a>
+          </div>
+
+          <div class="mini">
+            <span><i class="check">âœ“</i> Realtime seat & session</span>
+            <span><i class="check">âœ“</i> Audit log / Ä‘á»‘i soÃ¡t</span>
+            <span><i class="check">âœ“</i> Mobile-first UI</span>
+          </div>
+        </div>
+
+        <div class="card heroCard" aria-label="Preview panel">
+          <div class="mockTop">
+            <div class="pill">Owner Panel â€¢ PROD</div>
+            <div class="status"><span class="dot"></span> Sync OK</div>
+          </div>
+
+          <div class="mockBody">
+            <div class="statRow">
+              <div class="tile">
+                <div class="kpi">Tournament</div>
+                <div class="val">1</div>
+                <div class="trend">+12% vs yesterday</div>
+              </div>
+              <div class="tile">
+                <div class="kpi">Active Tables</div>
+                <div class="val">6</div>
+                <div class="trend">2 tables peak hour</div>
+              </div>
+            </div>
+
+            <div class="tile">
+              <div class="kpi">Realtime health</div>
+              <div class="val">Stable</div>
+              <div class="bar" aria-hidden="true"><i></i></div>
+              <div class="trend">Latency ~ low â€¢ Events streaming</div>
+            </div>
+
+            <div class="tile">
+              <div class="kpi">Quick actions</div>
+              <div class="trend">
+                â€¢ Create table â€¢ Assign dealer â€¢ Lock/Unlock session â€¢ Export report
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="features">
+    <div class="container">
+      <div class="sectionHead">
+        <div>
+          <h2>TÃ­nh nÄƒng cá»‘t lÃµi</h2>
+          <p>Thiáº¿t káº¿ táº­p trung váº­n hÃ nh: dá»… dÃ¹ng cho dealer/agent, rÃµ rÃ ng cho quáº£n lÃ½, dá»¯ liá»‡u chuáº©n cho Ä‘á»‘i soÃ¡t.</p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="feature">
+          <div class="icon">&#9889;</div>
+          <h3>Realtime nháº­p liá»‡u</h3>
+          <p>Ghi rake theo bÃ n / theo seat vÃ  Ä‘á»“ng bá»™ ngay. Háº¡n cháº¿ sai sá»‘, giáº£m thao tÃ¡c láº·p.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">&#128200;</div>
+          <h3>Audit & Ä‘á»‘i soÃ¡t</h3>
+          <p>Log sá»± kiá»‡n, trace thay Ä‘á»•i, export bÃ¡o cÃ¡o theo ngÃ y/tuáº§n/thÃ¡ng cho club & agent.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">&#127942;</div>
+          <h3>PhÃ¢n quyá»n rÃµ</h3>
+          <p>Owner/Supervisor/Agent/Dealer/Player view tÃ¡ch biá»‡t, giáº£m rá»§i ro lá»™ dá»¯ liá»‡u.</p>
+        </div>
+
+        <div class="feature">
+          <div class="icon">&#128241;</div>
+          <h3>Mobile-first</h3>
+          <p>UI tá»‘i Æ°u iPhone/iPad: thao tÃ¡c nhanh, chá»¯ rÃµ, nÃºt lá»›n cho mÃ´i trÆ°á»ng live.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">&#9881;</div>
+          <h3>Chuáº©n hÃ³a váº­n hÃ nh</h3>
+          <p>Template quy trÃ¬nh ca/kÃ­p, check-list bÃ n, chuáº©n hoÃ¡ cÃ¡ch ghi Ä‘á»ƒ training nhanh.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">&#9989;</div>
+          <h3>Dashboard quáº£n lÃ½</h3>
+          <p>Tháº¥y ngay tÃ¬nh tráº¡ng bÃ n, active session, tá»•ng rake, phÃ¢n bá»• theo agent & club.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="container">
+      <div class="sectionHead">
+        <div>
+          <h2>CÃ¡ch hoáº¡t Ä‘á»™ng</h2>
+          <p>Flow Ä‘Æ¡n giáº£n: táº¡o bÃ n â†’ login role â†’ nháº­p rake â†’ bÃ¡o cÃ¡o. Má»i thá»© Ä‘á»“ng bá»™ theo thá»i gian thá»±c.</p>
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="stepCard">
+          <div class="step">
+            <div class="num">1</div>
+            <div>
+              <b>Setup club & tables</b>
+              <span>Táº¡o club, táº¡o danh sÃ¡ch bÃ n, cáº¥u hÃ¬nh rake rule / % náº¿u cÃ³.</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <div>
+              <b>Login theo role</b>
+              <span>Dealer nháº­p liá»‡u, Agent theo dÃµi, Owner xem tá»•ng quan & Ä‘á»‘i soÃ¡t.</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <div>
+              <b>Realtime tracking</b>
+              <span>Ghi theo seat/session, cáº­p nháº­t tráº¡ng thÃ¡i online/offline, thá»i lÆ°á»£ng ngá»“i.</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">4</div>
+            <div>
+              <b>Report & export</b>
+              <span>BÃ¡o cÃ¡o theo ngÃ y/tuáº§n, export Ä‘á»ƒ kiá»ƒm toÃ¡n ná»™i bá»™.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card cta" id="cta">
+          <div>
+            <h3>Báº¯t Ä‘áº§u nhanh vá»›i tÃ i liá»‡u ká»¹ thuáº­t</h3>
+            <p>Trang docs cÃ³ checklist triá»ƒn khai, quy Æ°á»›c dá»¯ liá»‡u, guideline báº£o máº­t & troubleshooting.</p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn primary" href="docs.html">Open Docs</a>
+            <a class="btn" href="#security">Security</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="security">
+    <div class="container">
+      <div class="sectionHead">
+        <div>
+          <h2>Váº­n hÃ nh & báº£o máº­t</h2>
+          <p>Æ¯u tiÃªn: phÃ¢n quyá»n, truy váº¿t, vÃ  quy trÃ¬nh triá»ƒn khai an toÃ n (PROD / STAGING).</p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="feature">
+          <div class="icon">&#128737;</div>
+          <h3>Role-based access</h3>
+          <p>Chá»‰ hiá»ƒn thá»‹ Ä‘Ãºng dá»¯ liá»‡u theo vai trÃ². Giáº£m rá»§i ro â€œxem nháº§m, sá»­a nháº§mâ€.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">&#128274;</div>
+          <h3>Rule & policy</h3>
+          <p>Khuyáº¿n nghá»‹ báº­t policy phÃ­a backend (RLS) + validate dá»¯ liá»‡u á»Ÿ cáº£ client láº«n server.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">&#128190;</div>
+          <h3>Rollback & backup</h3>
+          <p>LuÃ´n cÃ³ STAGING Ä‘á»ƒ test, backup Ä‘á»‹nh ká»³, vÃ  cÃ¡ch rollback khi update.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="foot">
+        <div>© <span id="y"></span> <span id="footerCopy">Rivebase. Built for realtime operations.</span></div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="#features" data-i18n="navFeatures">Tính năng</a>
+          <a href="#how" data-i18n="navHow">Cách hoạt động</a>
+          <a href="docs.html">Docs</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const navlinks = document.getElementById('navlinks');
+    if(menuBtn){
+      menuBtn.addEventListener('click', () => navlinks.classList.toggle('open'));
+    }
+
+    // smooth scroll for internal anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const id = a.getAttribute('href');
+        const el = document.querySelector(id);
+        if(!el) return;
+        e.preventDefault();
+        navlinks.classList.remove('open');
+        el.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
+    const translations = {
+      vi: {
+        brandSub: 'Realtime Counter System',
+        nav: ['Tính năng', 'Cách hoạt động', 'Vận hành & bảo mật', 'Tài liệu kỹ thuật'],
+        topActions: ['Menu', 'Docs', 'Bắt đầu'],
+        heroTag: 'Tournament operations - Realtime sync',
+        heroTitle: 'Rivebase giúp dealer thao tác cực nhanh,<br/>chỉ vài giây để nhập data tournament.',
+        heroSub: 'Dữ liệu được đồng bộ lên <b>leaderboard realtime</b> để toàn bộ bàn cùng theo dõi. Floor có thể sắp xếp bàn nhanh, cập nhật trạng thái tức thì và đảm bảo mọi hoạt động trơn tru.',
+        heroButtons: ['Xem hướng dẫn kỹ thuật', 'Khám phá tính năng'],
+        mini: ['✓ Nhập liệu tournament trong vài giây', '✓ Leaderboard đồng bộ realtime', '✓ Floor điều phối bàn nhanh'],
+        previewTop: ['Owner Panel - PROD', 'Sync OK'],
+        metrics: ['Các Tour đang chạy', 'Hoàn tất trong vài giây', 'Bàn đang hoạt động', 'Floor sắp xếp tức thì', 'Sức khỏe realtime', 'Ổn định', 'Độ trễ thấp - Leaderboard đang stream', 'Hành động nhanh', '• Nhập blind/stack • Chuyển bàn • Cập nhật leaderboard • Xuất báo cáo'],
+        featuresHead: ['Tính năng cốt lõi', 'Thiết kế cho tournament tốc độ cao: dealer nhập nhanh, leaderboard realtime rõ ràng, floor điều phối bàn mượt mà.'],
+        features: [
+          ['Dealer nhập cực nhanh', 'Form tối giản để dealer nhập data tournament chỉ trong vài giây, giảm thao tác thừa.'],
+          ['Leaderboard realtime', 'Mỗi cập nhật được đồng bộ ngay lên màn hình leaderboard để người chơi và floor theo dõi tức thì.'],
+          ['Floor sắp xếp bàn nhanh', 'Floor có thể chuyển bàn, cân bàn và cập nhật trạng thái nhanh mà không gián đoạn ván.'],
+          ['Mobile-first tại sàn', 'UI tối ưu iPhone/iPad, nút lớn và rõ ràng để thao tác nhanh trong môi trường đông người.'],
+          ['Chuẩn hóa vận hành', 'Quy trình nhập liệu và điều phối thống nhất giúp đội ngũ phối hợp mượt và training nhanh.'],
+          ['Vận hành trơn tru', 'Theo dõi toàn bộ hoạt động theo thời gian thực để phát hiện sớm điểm nghẽn và xử lý kịp thời.']
+        ],
+        howHead: ['Cách hoạt động', 'Flow nhanh: dealer nhập dữ liệu -> leaderboard cập nhật realtime -> floor điều phối bàn -> tournament chạy trơn tru.'],
+        steps: [
+          ['Setup tournament & bàn', 'Tạo cấu hình tournament, danh sách bàn và thông số cơ bản trước giờ chạy.'],
+          ['Dealer nhập dữ liệu', 'Dealer cập nhật blind/stack/sự kiện nhanh gọn chỉ với vài thao tác.'],
+          ['Sync leaderboard realtime', 'Dữ liệu đồng bộ ngay lên màn hình leaderboard để toàn sàn nắm tình hình tức thời.'],
+          ['Floor điều phối bàn', 'Floor sắp xếp, chuyển và cân bàn nhanh để đảm bảo nhịp vận hành liên tục.']
+        ],
+        cta: ['Bắt đầu nhanh cho tournament realtime', 'Trang docs có checklist triển khai nhanh cho dealer/floor, chuẩn dữ liệu và hướng dẫn xử lý sự cố.', 'Mở Docs', 'Bảo mật'],
+        securityHead: ['Vận hành & bảo mật', 'Ưu tiên: dữ liệu chính xác theo thời gian thực, phân quyền rõ ràng và luồng vận hành ổn định.'],
+        security: [
+          ['Role-based access', 'Dealer, Floor, Owner chỉ thấy đúng phần việc cần thiết để tránh nhầm lẫn khi vận hành.'],
+          ['Rule & policy', 'Validate dữ liệu ở cả client và server để leaderboard realtime luôn chính xác, nhất quán.'],
+          ['Rollback & backup', 'Duy trì STAGING, backup định kỳ và kịch bản rollback để tournament không bị gián đoạn.']
+        ],
+        footerCopy: 'Rivebase. Built for realtime operations.',
+        footerNav: ['Tính năng', 'Cách hoạt động', 'Docs']
+      },
+      en: {
+        brandSub: 'Realtime Counter System',
+        nav: ['Features', 'How it works', 'Operations & security', 'Technical docs'],
+        topActions: ['Menu', 'Docs', 'Get Started'],
+        heroTag: 'Tournament operations - Realtime sync',
+        heroTitle: 'Rivebase helps dealers work fast,<br/>entering tournament data in seconds.',
+        heroSub: 'Updates sync instantly to the <b>realtime leaderboard</b>. Floor managers can arrange tables quickly, update status on the fly, and keep operations running smoothly.',
+        heroButtons: ['Open technical docs', 'Explore features'],
+        mini: ['✓ Tournament input in seconds', '✓ Realtime leaderboard sync', '✓ Fast floor table control'],
+        previewTop: ['Owner Panel - PROD', 'Sync OK'],
+        metrics: ['Tournament', 'Running', 'Active Tables', 'Floor rebalanced instantly', 'Realtime health', 'Stable', 'Low latency - Leaderboard streaming', 'Quick actions', '• Enter blind/stack • Move table • Update leaderboard • Export report'],
+        featuresHead: ['Core features', 'Designed for high-speed tournaments: fast dealer input, clear realtime leaderboard, and smooth floor coordination.'],
+        features: [
+          ['Fast dealer input', 'Minimal forms let dealers enter tournament data in seconds with fewer taps.'],
+          ['Realtime leaderboard', 'Every update is synced instantly to the leaderboard screen for live visibility.'],
+          ['Fast floor table management', 'Floor managers can move, rebalance, and update table status without interrupting play.'],
+          ['Mobile-first on the floor', 'Optimized for iPhone/iPad with large controls for fast actions in crowded live setups.'],
+          ['Standardized operations', 'Unified data and coordination flows help teams execute smoothly and train faster.'],
+          ['Smooth tournament flow', 'Track all activity in real time to catch bottlenecks early and resolve them quickly.']
+        ],
+        howHead: ['How it works', 'Fast flow: dealer input -> realtime leaderboard update -> floor table coordination -> smooth tournament operations.'],
+        steps: [
+          ['Setup tournament & tables', 'Configure tournament basics, table list, and key settings before kickoff.'],
+          ['Dealer enters updates', 'Dealers quickly submit blind/stack/event data with a few focused actions.'],
+          ['Sync realtime leaderboard', 'All updates are pushed instantly to the leaderboard for everyone on the floor.'],
+          ['Floor coordinates tables', 'Floor managers move and rebalance tables fast to keep the event running smoothly.']
+        ],
+        cta: ['Get started quickly for realtime tournaments', 'Docs include fast rollout checklists for dealers/floor, data standards, and troubleshooting guides.', 'Open Docs', 'Security'],
+        securityHead: ['Operations & security', 'Priorities: real-time data accuracy, clear permissions, and stable operational flow.'],
+        security: [
+          ['Role-based access', 'Dealer, Floor, and Owner each see only what they need for safe operations.'],
+          ['Rules & policy', 'Validate on client and server so realtime leaderboard data stays accurate and consistent.'],
+          ['Rollback & backup', 'Keep STAGING, scheduled backups, and rollback plans to avoid tournament disruption.']
+        ],
+        footerCopy: 'Rivebase. Built for realtime operations.',
+        footerNav: ['Features', 'How it works', 'Docs']
+      }
+    };
+
+    const langViBtn = document.getElementById('langVi');
+    const langEnBtn = document.getElementById('langEn');
+
+    function applyLanguage(lang){
+      const t = translations[lang] || translations.vi;
+      document.documentElement.lang = lang;
+
+      const nav = document.querySelectorAll('.navlinks a');
+      const topActions = document.querySelectorAll('.actions .btn');
+      const heroButtons = document.querySelectorAll('.heroCTA a');
+      const mini = document.querySelectorAll('.mini span');
+      const topPills = document.querySelectorAll('.mockTop > div');
+      const statTiles = document.querySelectorAll('.mockBody .statRow .tile');
+      const healthTile = document.querySelectorAll('.mockBody .tile')[2];
+      const quickTile = document.querySelectorAll('.mockBody .tile')[3];
+      const features = document.querySelectorAll('#features .feature');
+      const steps = document.querySelectorAll('#how .step');
+      const ctaBtns = document.querySelectorAll('#cta a');
+      const securityCards = document.querySelectorAll('#security .feature');
+      const footerLinks = document.querySelectorAll('footer .foot a');
+
+      document.querySelector('.brand small').textContent = t.brandSub;
+      nav.forEach((el, i) => { if (t.nav[i]) el.textContent = t.nav[i]; });
+      topActions.forEach((el, i) => { if (t.topActions[i]) el.textContent = t.topActions[i]; });
+      document.querySelector('.tag').innerHTML = '<span class="dot"></span> ' + t.heroTag;
+      document.querySelector('.hero h1').innerHTML = t.heroTitle;
+      document.querySelector('.hero .sub').innerHTML = t.heroSub;
+      heroButtons.forEach((el, i) => { if (t.heroButtons[i]) el.textContent = t.heroButtons[i]; });
+      mini.forEach((el, i) => { if (t.mini[i]) el.textContent = t.mini[i]; });
+      if (topPills[0]) topPills[0].textContent = t.previewTop[0];
+      if (topPills[1]) topPills[1].innerHTML = '<span class="dot"></span> ' + t.previewTop[1];
+
+      if (statTiles[0]){
+        statTiles[0].querySelector('.kpi').textContent = t.metrics[0];
+        statTiles[0].querySelector('.trend').textContent = t.metrics[1];
+      }
+      if (statTiles[1]){
+        statTiles[1].querySelector('.kpi').textContent = t.metrics[2];
+        statTiles[1].querySelector('.trend').textContent = t.metrics[3];
+      }
+      if (healthTile){
+        healthTile.querySelector('.kpi').textContent = t.metrics[4];
+        healthTile.querySelector('.val').textContent = t.metrics[5];
+        healthTile.querySelector('.trend').textContent = t.metrics[6];
+      }
+      if (quickTile){
+        quickTile.querySelector('.kpi').textContent = t.metrics[7];
+        quickTile.querySelector('.trend').textContent = t.metrics[8];
+      }
+
+      document.querySelector('#features .sectionHead h2').textContent = t.featuresHead[0];
+      document.querySelector('#features .sectionHead p').textContent = t.featuresHead[1];
+      features.forEach((card, i) => {
+        if (!t.features[i]) return;
+        card.querySelector('h3').textContent = t.features[i][0];
+        card.querySelector('p').textContent = t.features[i][1];
+      });
+
+      document.querySelector('#how .sectionHead h2').textContent = t.howHead[0];
+      document.querySelector('#how .sectionHead p').textContent = t.howHead[1];
+      steps.forEach((step, i) => {
+        if (!t.steps[i]) return;
+        step.querySelector('b').textContent = t.steps[i][0];
+        step.querySelector('span').textContent = t.steps[i][1];
+      });
+
+      document.querySelector('#cta h3').textContent = t.cta[0];
+      document.querySelector('#cta p').textContent = t.cta[1];
+      ctaBtns.forEach((el, i) => { if (t.cta[i + 2]) el.textContent = t.cta[i + 2]; });
+
+      document.querySelector('#security .sectionHead h2').textContent = t.securityHead[0];
+      document.querySelector('#security .sectionHead p').textContent = t.securityHead[1];
+      securityCards.forEach((card, i) => {
+        if (!t.security[i]) return;
+        card.querySelector('h3').textContent = t.security[i][0];
+        card.querySelector('p').textContent = t.security[i][1];
+      });
+
+      document.getElementById('footerCopy').textContent = t.footerCopy;
+      footerLinks.forEach((el, i) => { if (t.footerNav[i]) el.textContent = t.footerNav[i]; });
+
+      langViBtn.classList.toggle('active', lang === 'vi');
+      langEnBtn.classList.toggle('active', lang === 'en');
+      localStorage.setItem('rivebase-lang', lang);
+    }
+
+    langViBtn.addEventListener('click', () => applyLanguage('vi'));
+    langEnBtn.addEventListener('click', () => applyLanguage('en'));
+
+    const initialLang = localStorage.getItem('rivebase-lang') || 'vi';
+    applyLanguage(initialLang === 'en' ? 'en' : 'vi');
+  </script>
+</body>
+</html>
+

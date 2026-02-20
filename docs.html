@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Docs - Rivebase</title>
+  <meta name="description" content="Rivebase technical documentation template." />
+  <style>
+    :root{
+      --bg:#070A12;
+      --panel: rgba(255,255,255,.06);
+      --txt:#EAF0FF;
+      --muted: rgba(234,240,255,.72);
+      --line: rgba(255,255,255,.12);
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+      --radius2: 24px;
+      --max: 1120px;
+      --btn:#ffffff;
+      --btnTxt:#0A0F1F;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--txt);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(124,58,237,.35), transparent 55%),
+        radial-gradient(900px 600px at 90% 0%, rgba(34,211,238,.22), transparent 55%),
+        radial-gradient(900px 600px at 70% 120%, rgba(96,165,250,.18), transparent 60%),
+        var(--bg);
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--max); margin:0 auto; padding:0 18px}
+
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      background: linear-gradient(to bottom, rgba(7,10,18,.92), rgba(7,10,18,.62));
+      backdrop-filter: blur(12px);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0; gap:12px;
+    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700}
+    .logo{
+      width:36px; height:36px; border-radius:12px;
+      background:
+        radial-gradient(12px 12px at 30% 30%, rgba(255,255,255,.55), transparent 60%),
+        linear-gradient(135deg, rgba(124,58,237,.95), rgba(34,211,238,.85));
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow: 0 12px 35px rgba(124,58,237,.22);
+    }
+    .brand small{display:block; color:var(--muted); font-weight:600}
+    .actions{display:flex; gap:10px; align-items:center}
+    .langSwitch{
+      display:inline-flex; border:1px solid rgba(255,255,255,.14); border-radius:14px; overflow:hidden;
+      background: rgba(255,255,255,.04);
+    }
+    .langBtn{
+      border:none; background:transparent; color:var(--muted);
+      font-weight:700; font-size:12px; padding:9px 11px; cursor:pointer;
+    }
+    .langBtn.active{background: rgba(255,255,255,.18); color:var(--txt)}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px; border-radius:14px; font-weight:650; font-size:14px;
+      border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.05); color:var(--txt);
+    }
+    .btn.primary{background:var(--btn); color:var(--btnTxt)}
+
+    .hero{padding:48px 0 18px}
+    .tag{
+      display:inline-flex; align-items:center; gap:8px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color: var(--muted); padding:8px 12px; border-radius:999px; font-size:13px;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:99px; background:#7CFFB2;
+      box-shadow: 0 0 0 6px rgba(124,255,178,.10);
+    }
+    h1{margin:14px 0 8px; font-size:42px; line-height:1.08; letter-spacing:-.5px}
+    .sub{margin:0; color:var(--muted); font-size:16px; line-height:1.6; max-width:70ch}
+
+    .docsLayout{
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:14px;
+      padding:12px 0 36px;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+    }
+    .toc{padding:14px; position:sticky; top:82px; height:fit-content}
+    .toc h3{margin:4px 0 10px; font-size:15px}
+    .toc a{
+      display:block; padding:9px 10px; border-radius:12px;
+      color:var(--muted); border:1px solid transparent; font-size:14px;
+    }
+    .toc a:hover{color:var(--txt); border-color:var(--line); background: rgba(255,255,255,.04)}
+
+    .content{display:grid; gap:12px}
+    .docSection{padding:18px}
+    .docSection h2{margin:0 0 8px; font-size:22px}
+    .docSection p{margin:0; color:var(--muted); line-height:1.65}
+    .placeholder{
+      margin-top:12px; padding:12px;
+      border-radius:14px; border:1px dashed rgba(255,255,255,.2);
+      background: rgba(255,255,255,.03); color:var(--muted); font-size:14px;
+    }
+
+    footer{
+      padding:26px 0 36px; border-top:1px solid rgba(255,255,255,.08);
+      color:var(--muted); font-size:13px; margin-top:16px;
+    }
+    .foot{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
+
+    @media (max-width: 900px){
+      h1{font-size:34px}
+      .docsLayout{grid-template-columns:1fr}
+      .toc{position:static}
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="index.html">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            Rivebase
+            <small id="brandSub">Realtime Counter System</small>
+          </div>
+        </a>
+        <div class="actions">
+          <div class="langSwitch" aria-label="Language switcher">
+            <button class="langBtn active" id="langVi" type="button">VI</button>
+            <button class="langBtn" id="langEn" type="button">EN</button>
+          </div>
+          <a class="btn" id="backHome" href="index.html">Trang chủ</a>
+          <a class="btn primary" href="#overview" id="jumpTop">Bắt đầu</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="container">
+      <div class="tag"><span class="dot"></span> <span id="heroTag">Template tài liệu kỹ thuật</span></div>
+      <h1 id="heroTitle">Rivebase Docs</h1>
+      <p class="sub" id="heroSub">Trang này là khung mẫu giống giao diện index để bạn điền nội dung kỹ thuật sau: quy trình, data model, guideline vận hành, troubleshooting.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="docsLayout">
+      <aside class="card toc">
+        <h3 id="tocTitle">Mục lục</h3>
+        <a href="#overview">1. Overview</a>
+        <a href="#quickstart">2. Quick Start</a>
+        <a href="#data-model">3. Data Model</a>
+        <a href="#api">4. API / Events</a>
+        <a href="#security">5. Security</a>
+        <a href="#troubleshooting">6. Troubleshooting</a>
+        <a href="#changelog">7. Changelog</a>
+      </aside>
+
+      <section class="content">
+        <article class="card docSection" id="overview">
+          <h2>Overview</h2>
+          <p id="overviewText">Mô tả mục tiêu sản phẩm, vai trò người dùng (Dealer/Floor/Owner), và luồng vận hành tổng quan.</p>
+          <div class="placeholder">TODO: Thêm sơ đồ luồng nghiệp vụ và phạm vi triển khai.</div>
+        </article>
+
+        <article class="card docSection" id="quickstart">
+          <h2>Quick Start</h2>
+          <p id="quickStartText">Checklist cài đặt nhanh: môi trường, biến cấu hình, quyền truy cập và bước kiểm tra đầu tiên.</p>
+          <div class="placeholder">TODO: Dán lệnh setup, env example và checklist before-go-live.</div>
+        </article>
+
+        <article class="card docSection" id="data-model">
+          <h2>Data Model</h2>
+          <p id="dataModelText">Định nghĩa các entity chính: tournament, table, seat, player, event log, leaderboard snapshot.</p>
+          <div class="placeholder">TODO: Thêm schema, field bắt buộc, quy tắc validate.</div>
+        </article>
+
+        <article class="card docSection" id="api">
+          <h2>API / Events</h2>
+          <p id="apiText">Mô tả endpoint/event quan trọng, payload mẫu, response mẫu và các mã lỗi thường gặp.</p>
+          <div class="placeholder">TODO: Bổ sung ví dụ request/response và retry strategy.</div>
+        </article>
+
+        <article class="card docSection" id="security">
+          <h2>Security</h2>
+          <p id="securityText">Chiến lược phân quyền, audit log, chính sách xác thực và bảo vệ dữ liệu theo vai trò.</p>
+          <div class="placeholder">TODO: Thêm rule cụ thể cho Dealer/Floor/Owner và quy trình incident response.</div>
+        </article>
+
+        <article class="card docSection" id="troubleshooting">
+          <h2>Troubleshooting</h2>
+          <p id="troubleText">Danh sách sự cố phổ biến khi chạy tournament realtime và cách xử lý theo từng mức độ.</p>
+          <div class="placeholder">TODO: Thêm playbook khi leaderboard trễ, mất đồng bộ hoặc nhập sai dữ liệu.</div>
+        </article>
+
+        <article class="card docSection" id="changelog">
+          <h2>Changelog</h2>
+          <p id="changeText">Lưu lịch sử thay đổi tài liệu theo phiên bản để team dễ theo dõi cập nhật.</p>
+          <div class="placeholder">TODO: Tạo format version/date/author/summary.</div>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="foot">
+        <div>© <span id="y"></span> <span id="footerCopy">Rivebase Docs Template.</span></div>
+        <div>
+          <a href="index.html" id="footerHome">Trang chủ</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    const langViBtn = document.getElementById('langVi');
+    const langEnBtn = document.getElementById('langEn');
+
+    const i18n = {
+      vi: {
+        backHome: 'Trang chủ',
+        jumpTop: 'Bắt đầu',
+        heroTag: 'Template tài liệu kỹ thuật',
+        heroTitle: 'Rivebase Docs',
+        heroSub: 'Trang này là khung mẫu giống giao diện index để bạn điền nội dung kỹ thuật sau: quy trình, data model, guideline vận hành, troubleshooting.',
+        tocTitle: 'Mục lục',
+        overviewText: 'Mô tả mục tiêu sản phẩm, vai trò người dùng (Dealer/Floor/Owner), và luồng vận hành tổng quan.',
+        quickStartText: 'Checklist cài đặt nhanh: môi trường, biến cấu hình, quyền truy cập và bước kiểm tra đầu tiên.',
+        dataModelText: 'Định nghĩa các entity chính: tournament, table, seat, player, event log, leaderboard snapshot.',
+        apiText: 'Mô tả endpoint/event quan trọng, payload mẫu, response mẫu và các mã lỗi thường gặp.',
+        securityText: 'Chiến lược phân quyền, audit log, chính sách xác thực và bảo vệ dữ liệu theo vai trò.',
+        troubleText: 'Danh sách sự cố phổ biến khi chạy tournament realtime và cách xử lý theo từng mức độ.',
+        changeText: 'Lưu lịch sử thay đổi tài liệu theo phiên bản để team dễ theo dõi cập nhật.',
+        footerCopy: 'Rivebase Docs Template.',
+        footerHome: 'Trang chủ'
+      },
+      en: {
+        backHome: 'Home',
+        jumpTop: 'Start',
+        heroTag: 'Technical docs template',
+        heroTitle: 'Rivebase Docs',
+        heroSub: 'This page is a template matching the index style, ready for your technical content: flows, data model, operation guidelines, and troubleshooting.',
+        tocTitle: 'Table of contents',
+        overviewText: 'Describe product goals, user roles (Dealer/Floor/Owner), and the high-level operation flow.',
+        quickStartText: 'Quick setup checklist: environment, config variables, access permissions, and first validation steps.',
+        dataModelText: 'Define core entities: tournament, table, seat, player, event log, and leaderboard snapshot.',
+        apiText: 'Document key endpoints/events, sample payloads, sample responses, and common error codes.',
+        securityText: 'Outline role permissions, audit logging, authentication policy, and role-based data protection.',
+        troubleText: 'List common realtime tournament issues and the handling guide by severity.',
+        changeText: 'Track documentation updates by version so the team can follow all changes.',
+        footerCopy: 'Rivebase Docs Template.',
+        footerHome: 'Home'
+      }
+    };
+
+    function applyLanguage(lang){
+      const t = i18n[lang] || i18n.vi;
+      document.documentElement.lang = lang;
+      Object.keys(t).forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = t[id];
+      });
+      langViBtn.classList.toggle('active', lang === 'vi');
+      langEnBtn.classList.toggle('active', lang === 'en');
+      localStorage.setItem('rivebase-lang', lang);
+    }
+
+    langViBtn.addEventListener('click', () => applyLanguage('vi'));
+    langEnBtn.addEventListener('click', () => applyLanguage('en'));
+
+    const initialLang = localStorage.getItem('rivebase-lang') || 'vi';
+    applyLanguage(initialLang === 'en' ? 'en' : 'vi');
+  </script>
+</body>
+</html>
