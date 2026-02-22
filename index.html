@@ -748,10 +748,12 @@
 
     const langViBtn = document.getElementById('langVi');
     const langEnBtn = document.getElementById('langEn');
+    const LANG_STORAGE_KEY = 'rivebase-docs-lang';
 
     function applyLanguage(lang){
-      const t = translations[lang] || translations.vi;
-      document.documentElement.lang = lang;
+      const normalizedLang = lang === 'en' ? 'en' : 'vi';
+      const t = translations[normalizedLang] || translations.vi;
+      document.documentElement.lang = normalizedLang;
 
       const nav = document.querySelectorAll('.navlinks a');
       const topActions = document.querySelectorAll('.actions .btn');
@@ -827,15 +829,18 @@
       document.getElementById('footerCopy').textContent = t.footerCopy;
       footerLinks.forEach((el, i) => { if (t.footerNav[i]) el.textContent = t.footerNav[i]; });
 
-      langViBtn.classList.toggle('active', lang === 'vi');
-      langEnBtn.classList.toggle('active', lang === 'en');
-      localStorage.setItem('rivebase-lang', lang);
+      langViBtn.classList.toggle('active', normalizedLang === 'vi');
+      langEnBtn.classList.toggle('active', normalizedLang === 'en');
+      localStorage.setItem(LANG_STORAGE_KEY, normalizedLang);
+      localStorage.setItem('rivebase-lang', normalizedLang);
     }
 
     langViBtn.addEventListener('click', () => applyLanguage('vi'));
     langEnBtn.addEventListener('click', () => applyLanguage('en'));
 
-    const initialLang = localStorage.getItem('rivebase-lang') || 'vi';
+    const initialLang = localStorage.getItem(LANG_STORAGE_KEY)
+      || localStorage.getItem('rivebase-lang')
+      || 'vi';
     applyLanguage(initialLang === 'en' ? 'en' : 'vi');
   </script>
 </body>
