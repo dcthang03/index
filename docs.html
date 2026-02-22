@@ -1,304 +1,406 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="vi">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Docs - Rivebase</title>
-  <meta name="description" content="Rivebase technical documentation template." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hand Counter Tournament Docs</title>
   <style>
-    :root{
-      --bg:#070A12;
-      --panel: rgba(255,255,255,.06);
-      --txt:#EAF0FF;
-      --muted: rgba(234,240,255,.72);
-      --line: rgba(255,255,255,.12);
-      --shadow: 0 18px 60px rgba(0,0,0,.45);
-      --radius: 18px;
-      --radius2: 24px;
-      --max: 1120px;
-      --btn:#ffffff;
-      --btnTxt:#0A0F1F;
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --line: #dbe2f0;
+      --primary: #0b5ed7;
+      --max: 1080px;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color:var(--txt);
-      background:
-        radial-gradient(1200px 600px at 10% -10%, rgba(124,58,237,.35), transparent 55%),
-        radial-gradient(900px 600px at 90% 0%, rgba(34,211,238,.22), transparent 55%),
-        radial-gradient(900px 600px at 70% 120%, rgba(96,165,250,.18), transparent 60%),
-        var(--bg);
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #eef3ff 0%, var(--bg) 240px, var(--bg) 100%);
+      line-height: 1.6;
     }
-    a{color:inherit;text-decoration:none}
-    .container{max-width:var(--max); margin:0 auto; padding:0 18px}
-
-    .topbar{
-      position:sticky; top:0; z-index:50;
-      background: linear-gradient(to bottom, rgba(7,10,18,.92), rgba(7,10,18,.62));
-      backdrop-filter: blur(12px);
-      border-bottom:1px solid rgba(255,255,255,.08);
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 24px 16px 40px;
     }
-    .nav{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:14px 0; gap:12px;
+    .hero {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 16px;
     }
-    .brand{display:flex; align-items:center; gap:10px; font-weight:700; flex-wrap:wrap; min-width:0}
-    .logo{
-      width:36px; height:36px; border-radius:12px;
-      flex:0 0 36px;
-      aspect-ratio:1/1;
-      background:
-        radial-gradient(12px 12px at 30% 30%, rgba(255,255,255,.55), transparent 60%),
-        linear-gradient(135deg, rgba(124,58,237,.95), rgba(34,211,238,.85));
-      border:1px solid rgba(255,255,255,.18);
-      box-shadow: 0 12px 35px rgba(124,58,237,.22);
+    h1, h2, h3 { margin: 0 0 10px; line-height: 1.3; }
+    h1 { font-size: 30px; }
+    h2 {
+      font-size: 22px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 8px;
+      margin-top: 24px;
     }
-    .brandText{min-width:0}
-    .brand small{display:block; color:var(--muted); font-weight:600}
-    .actions{display:flex; gap:10px; align-items:center}
-    .langSwitch{
-      display:inline-flex; border:1px solid rgba(255,255,255,.14); border-radius:14px; overflow:hidden;
-      background: rgba(255,255,255,.04);
+    p { margin: 0 0 10px; }
+    .muted { color: var(--muted); }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 14px;
     }
-    .langBtn{
-      border:none; background:transparent; color:var(--muted);
-      font-weight:700; font-size:12px; padding:9px 11px; cursor:pointer;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+      font-size: 14px;
     }
-    .langBtn.active{background: rgba(255,255,255,.18); color:var(--txt)}
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:10px 14px; border-radius:14px; font-weight:650; font-size:14px;
-      border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.05); color:var(--txt);
+    th, td {
+      border: 1px solid var(--line);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
     }
-    .btn.primary{background:var(--btn); color:var(--btnTxt)}
-
-    .hero{padding:48px 0 18px}
-    .tag{
-      display:inline-flex; align-items:center; gap:8px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.05);
-      color: var(--muted); padding:8px 12px; border-radius:999px; font-size:13px;
+    th { background: #f8faff; }
+    code, pre {
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      font-size: 13px;
     }
-    .dot{
-      width:8px; height:8px; border-radius:99px; background:#7CFFB2;
-      box-shadow: 0 0 0 6px rgba(124,255,178,.10);
+    pre {
+      background: #0b1220;
+      color: #e2ecff;
+      border-radius: 10px;
+      padding: 12px;
+      overflow-x: auto;
+      margin: 10px 0;
     }
-    h1{margin:14px 0 8px; font-size:42px; line-height:1.08; letter-spacing:-.5px}
-    .sub{margin:0; color:var(--muted); font-size:16px; line-height:1.6; max-width:70ch}
-
-    .docsLayout{
-      display:grid;
-      grid-template-columns: 280px 1fr;
-      gap:14px;
-      padding:12px 0 36px;
+    ul { margin: 8px 0 0 20px; }
+    .ok { color: #0f766e; font-weight: 700; }
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 10px;
     }
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
-      border:1px solid rgba(255,255,255,.12);
-      border-radius: var(--radius2);
-      box-shadow: var(--shadow);
-    }
-    .toc{padding:14px; position:sticky; top:82px; height:fit-content}
-    .toc h3{margin:4px 0 10px; font-size:15px}
-    .toc a{
-      display:block; padding:9px 10px; border-radius:12px;
-      color:var(--muted); border:1px solid transparent; font-size:14px;
-    }
-    .toc a:hover{color:var(--txt); border-color:var(--line); background: rgba(255,255,255,.04)}
-
-    .content{display:grid; gap:12px}
-    .docSection{padding:18px}
-    .docSection h2{margin:0 0 8px; font-size:22px}
-    .docSection p{margin:0; color:var(--muted); line-height:1.65}
-    .placeholder{
-      margin-top:12px; padding:12px;
-      border-radius:14px; border:1px dashed rgba(255,255,255,.2);
-      background: rgba(255,255,255,.03); color:var(--muted); font-size:14px;
-    }
-
-    footer{
-      padding:26px 0 36px; border-top:1px solid rgba(255,255,255,.08);
-      color:var(--muted); font-size:13px; margin-top:16px;
-    }
-    .foot{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
-
-    @media (max-width: 900px){
-      h1{font-size:34px}
-      .docsLayout{grid-template-columns:1fr}
-      .toc{position:static}
-    }
-    @media (max-width: 560px){
-      .brand small{display:none}
-    }
-    @media (max-width: 430px){
-      .brand .logo{display:none}
-      .brand{flex-wrap:nowrap}
+    .badge {
+      display: inline-block;
+      background: #e8f0ff;
+      color: var(--primary);
+      border: 1px solid #c8d9ff;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
-  <div class="topbar">
-    <div class="container">
-      <div class="nav">
-        <a class="brand" href="index.html">
-          <div class="logo" aria-hidden="true"></div>
-          <div class="brandText">
-            Rivebase
-            <small id="brandSub">Realtime Counter System</small>
-          </div>
-        </a>
-        <div class="actions">
-          <div class="langSwitch" aria-label="Language switcher">
-            <button class="langBtn active" id="langVi" type="button">VI</button>
-            <button class="langBtn" id="langEn" type="button">EN</button>
-          </div>
-          <a class="btn" id="backHome" href="index.html">Trang chủ</a>
-          <a class="btn primary" href="#overview" id="jumpTop">Bắt đầu</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  <main class="wrap">
+    <section class="hero">
+      <div class="badge">Hand Counter Tournament</div>
+      <h1>Hand Counter Tournament Documentation</h1>
+      <p>Hand Counter Tournament là hệ thống vận hành giải poker theo mô hình <strong>semi-automated tournament control</strong>, giúp club quản lý hand progression, seating, và chip tracking theo thời gian thực mà không cần chip RFID hoặc camera tracking.</p>
+    </section>
 
-  <header class="hero">
-    <div class="container">
-      <div class="tag"><span class="dot"></span> <span id="heroTag">Template tài liệu kỹ thuật</span></div>
-      <h1 id="heroTitle">Rivebase Docs</h1>
-      <p class="sub" id="heroSub">Trang này là khung mẫu giống giao diện index để bạn điền nội dung kỹ thuật sau: quy trình, data model, guideline vận hành, troubleshooting.</p>
-    </div>
-  </header>
+    <section class="card">
+      <h2>Mục tiêu sản phẩm</h2>
+      <ul>
+        <li>Chuẩn hoá vận hành tournament theo hướng digital-first workflow.</li>
+        <li>Giảm sai sót thủ công khi ghi chép hand / move / chip status.</li>
+        <li>Cung cấp leaderboard realtime theo từng hand để Floor &amp; Owner kiểm soát tình trạng giải.</li>
+        <li>Tối ưu thao tác Dealer: mỗi hành động chỉ ~0.5 giây/tap.</li>
+        <li>Không thay đổi flow deal truyền thống, Dealer học nhanh, không gây "tech shock".</li>
+      </ul>
+    </section>
 
-  <main class="container">
-    <div class="docsLayout">
-      <aside class="card toc">
-        <h3 id="tocTitle">Mục lục</h3>
-        <a href="#overview">1. Overview</a>
-        <a href="#quickstart">2. Quick Start</a>
-        <a href="#data-model">3. Data Model</a>
-        <a href="#api">4. API / Events</a>
-        <a href="#security">5. Security</a>
-        <a href="#troubleshooting">6. Troubleshooting</a>
-        <a href="#changelog">7. Changelog</a>
-      </aside>
+    <section class="card">
+      <h2>Vai trò người dùng</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Role</th>
+            <th>Quyền chính</th>
+            <th>Mục tiêu sử dụng</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Dealer</td>
+            <td>Gán seat, Next Hand, update trạng thái</td>
+            <td>Vận hành bàn nhanh, ít thao tác</td>
+          </tr>
+          <tr>
+            <td>Floor</td>
+            <td>Move / Reject / Correct</td>
+            <td>Kiểm soát logic tournament</td>
+          </tr>
+          <tr>
+            <td>Owner</td>
+            <td>Theo dõi toàn giải, audit</td>
+            <td>Giám sát &amp; báo cáo</td>
+          </tr>
+        </tbody>
+      </table>
 
-      <section class="content">
-        <article class="card docSection" id="overview">
-          <h2>Overview</h2>
-          <p id="overviewText">Mô tả mục tiêu sản phẩm, vai trò người dùng (Dealer/Floor/Owner), và luồng vận hành tổng quan.</p>
-          <div class="placeholder">TODO: Thêm sơ đồ luồng nghiệp vụ và phạm vi triển khai.</div>
-        </article>
+      <h3>Thời gian đào tạo</h3>
+      <p>Club chỉ cần <strong>30 phút training Dealer</strong> là có thể vận hành.</p>
+    </section>
 
-        <article class="card docSection" id="quickstart">
-          <h2>Quick Start</h2>
-          <p id="quickStartText">Checklist cài đặt nhanh: môi trường, biến cấu hình, quyền truy cập và bước kiểm tra đầu tiên.</p>
-          <div class="placeholder">TODO: Dán lệnh setup, env example và checklist before-go-live.</div>
-        </article>
+    <section class="card">
+      <h2>Luồng vận hành tổng quan</h2>
+      <ol>
+        <li>Player check-in bằng <code>player_uid</code> hoặc QR Member.</li>
+        <li>Dealer scan rồi assign vào seat.</li>
+        <li>Dealer tap Next Hand sau mỗi hand.</li>
+        <li>System snapshot leaderboard realtime.</li>
+        <li>Floor can intervene nếu cần move / reject / adjust.</li>
+      </ol>
+    </section>
 
-        <article class="card docSection" id="data-model">
-          <h2>Data Model</h2>
-          <p id="dataModelText">Định nghĩa các entity chính: tournament, table, seat, player, event log, leaderboard snapshot.</p>
-          <div class="placeholder">TODO: Thêm schema, field bắt buộc, quy tắc validate.</div>
-        </article>
+    <section class="card">
+      <h2>Quick Start</h2>
+      <h3>Yêu cầu hệ thống</h3>
+      <ul>
+        <li>Tablet hoặc iPad tại mỗi table (khuyến nghị ≥10").</li>
+        <li>WiFi nội bộ ổn định (LAN preferred).</li>
+        <li>1 màn hình TV / Dashboard để hiển thị leaderboard.</li>
+      </ul>
 
-        <article class="card docSection" id="api">
-          <h2>API / Events</h2>
-          <p id="apiText">Mô tả endpoint/event quan trọng, payload mẫu, response mẫu và các mã lỗi thường gặp.</p>
-          <div class="placeholder">TODO: Bổ sung ví dụ request/response và retry strategy.</div>
-        </article>
+      <h3>Checklist triển khai nhanh</h3>
+      <ul>
+        <li><span class="ok">✔</span> Tạo Tournament trong Admin</li>
+        <li><span class="ok">✔</span> Import danh sách Player (hoặc dùng DB có sẵn của club)</li>
+        <li><span class="ok">✔</span> In QR Member (optional nhưng khuyến nghị)</li>
+        <li><span class="ok">✔</span> Gán thiết bị cho từng Table</li>
+        <li><span class="ok">✔</span> Test Next Hand sync</li>
+        <li><span class="ok">✔</span> Verify Leaderboard realtime</li>
+        <li><span class="ok">✔</span> Go-Live</li>
+      </ul>
 
-        <article class="card docSection" id="security">
-          <h2>Security</h2>
-          <p id="securityText">Chiến lược phân quyền, audit log, chính sách xác thực và bảo vệ dữ liệu theo vai trò.</p>
-          <div class="placeholder">TODO: Thêm rule cụ thể cho Dealer/Floor/Owner và quy trình incident response.</div>
-        </article>
+      <h3>Before Go-Live Test (5 phút)</h3>
+      <ul>
+        <li>Test scan QR và assign seat.</li>
+        <li>Test Move player.</li>
+        <li>Test leaderboard update &lt; 1s.</li>
+        <li>Test reconnect network.</li>
+      </ul>
+    </section>
 
-        <article class="card docSection" id="troubleshooting">
-          <h2>Troubleshooting</h2>
-          <p id="troubleText">Danh sách sự cố phổ biến khi chạy tournament realtime và cách xử lý theo từng mức độ.</p>
-          <div class="placeholder">TODO: Thêm playbook khi leaderboard trễ, mất đồng bộ hoặc nhập sai dữ liệu.</div>
-        </article>
+    <section class="card">
+      <h2>Data Model</h2>
+      <h3>Core Entities</h3>
 
-        <article class="card docSection" id="changelog">
-          <h2>Changelog</h2>
-          <p id="changeText">Lưu lịch sử thay đổi tài liệu theo phiên bản để team dễ theo dõi cập nhật.</p>
-          <div class="placeholder">TODO: Tạo format version/date/author/summary.</div>
-        </article>
-      </section>
-    </div>
+      <h3><code>tournament</code></h3>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>tournament_id</td><td>text</td><td>ID giải đấu</td></tr>
+          <tr><td>name</td><td>text</td><td>Tên giải</td></tr>
+          <tr><td>starting_chips</td><td>int</td><td>Stack khởi điểm</td></tr>
+          <tr><td>status</td><td>enum</td><td>pending / running / closed</td></tr>
+        </tbody>
+      </table>
+
+      <h3><code>table</code></h3>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td>table_id</td><td>text</td></tr>
+          <tr><td>tournament_id</td><td>fk</td></tr>
+          <tr><td>max_seats</td><td>int</td></tr>
+        </tbody>
+      </table>
+
+      <h3><code>seat</code></h3>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td>seat_id</td><td>text</td></tr>
+          <tr><td>table_id</td><td>fk</td></tr>
+          <tr><td>player_uid</td><td>nullable</td></tr>
+          <tr><td>is_active</td><td>bool</td></tr>
+        </tbody>
+      </table>
+
+      <h3><code>player</code></h3>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td>player_uid</td><td>text (club-defined)</td></tr>
+          <tr><td>player_name</td><td>text</td></tr>
+          <tr><td>member_qr</td><td>optional</td></tr>
+        </tbody>
+      </table>
+
+      <p class="muted">Có thể dùng luôn <code>player_uid</code> hiện tại của club, không cần migrate hệ thống cũ.</p>
+
+      <h3><code>event_log</code></h3>
+      <p>Immutable audit trail.</p>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td>event_id</td><td>uuid</td></tr>
+          <tr><td>type</td><td>next_hand / move / assign</td></tr>
+          <tr><td>actor_role</td><td>dealer/floor</td></tr>
+          <tr><td>timestamp</td><td>timestamptz</td></tr>
+        </tbody>
+      </table>
+
+      <h3><code>leaderboard_snapshot</code></h3>
+      <p>Generated mỗi lần Next Hand.</p>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td>player_uid</td><td>fk</td></tr>
+          <tr><td>tournament_id</td><td>fk</td></tr>
+          <tr><td>player_chips</td><td>int</td></tr>
+          <tr><td>hand_no</td><td>int</td></tr>
+        </tbody>
+      </table>
+
+      <p class="muted">Đây là snapshot-based model để đảm bảo audit và rollback.</p>
+    </section>
+
+    <section class="card">
+      <h2>API / Events</h2>
+
+      <h3>Next Hand Event</h3>
+      <p>Trigger chính của hệ thống.</p>
+      <p><code>POST /event/next-hand</code></p>
+      <p>Payload:</p>
+      <pre>{
+  "table_id": "T12",
+  "dealer_id": "D03",
+  "hand_no": 128
+}</pre>
+
+      <p>System sẽ:</p>
+      <ul>
+        <li>Lock state bàn</li>
+        <li>Commit snapshot leaderboard</li>
+        <li>Broadcast realtime update</li>
+        <li>Unlock</li>
+      </ul>
+      <p>Latency mục tiêu: <strong>&lt;300ms</strong></p>
+
+      <h3>Assign Player (QR Scan)</h3>
+      <p><code>POST /seat/assign</code></p>
+      <pre>{
+  "seat_id": "T12-S4",
+  "player_uid": "A104"
+}</pre>
+
+      <h3>Move Player (Floor Action)</h3>
+      <p><code>POST /floor/move</code></p>
+      <p>Atomic swap để tránh duplicate seat.</p>
+
+      <h3>Error Codes</h3>
+      <table>
+        <thead><tr><th>Code</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td>409</td><td>Seat already occupied</td></tr>
+          <tr><td>422</td><td>Player not registered</td></tr>
+          <tr><td>503</td><td>Sync delay</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Retry Strategy</h3>
+      <p>Dealer UI auto-retry silently (idempotent).</p>
+    </section>
+
+    <section class="card">
+      <h2>Security</h2>
+      <h3>Role-Based Access Control</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Action</th>
+            <th>Dealer</th>
+            <th>Floor</th>
+            <th>Owner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Next Hand</td><td>✔</td><td>✔</td><td>✔</td></tr>
+          <tr><td>Assign Seat</td><td>✔</td><td>✔</td><td>✔</td></tr>
+          <tr><td>Move Player</td><td>✖</td><td>✔</td><td>✔</td></tr>
+          <tr><td>Reject Action</td><td>✖</td><td>✔</td><td>✔</td></tr>
+          <tr><td>Audit Logs</td><td>✖</td><td>✖</td><td>✔</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Audit Design</h3>
+      <ul>
+        <li>Không cho phép edit trực tiếp chip.</li>
+        <li>Chỉ append event.</li>
+        <li>Mọi thay đổi có trace.</li>
+      </ul>
+      <p>System theo triết lý: <strong>Operational Transparency over Automation</strong>.</p>
+    </section>
+
+    <section class="card">
+      <h2>Operational Characteristics</h2>
+      <h3>Semi-Automated Philosophy</h3>
+      <p>Không cố "auto hóa toàn bộ" như RFID system. Thay vào đó:</p>
+      <ul>
+        <li>Human-driven</li>
+        <li>System-validated</li>
+        <li>Instant recorded</li>
+      </ul>
+      <p>Phù hợp môi trường club thực tế.</p>
+
+      <h3>Performance Target</h3>
+      <table>
+        <thead><tr><th>Metric</th><th>Target</th></tr></thead>
+        <tbody>
+          <tr><td>Dealer action time</td><td>~0.5s</td></tr>
+          <tr><td>Leaderboard refresh</td><td>realtime</td></tr>
+          <tr><td>Training time</td><td>30 phút</td></tr>
+          <tr><td>Failure tolerance</td><td>Offline buffer</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>Troubleshooting</h2>
+      <h3>Leaderboard không update</h3>
+      <ul>
+        <li>Check Next Hand đã tap chưa.</li>
+        <li>Check network latency.</li>
+        <li>Re-sync snapshot.</li>
+      </ul>
+
+      <h3>Dealer nhập sai seat</h3>
+      <p>Floor dùng Move (non-destructive correction).</p>
+
+      <h3>Mất kết nối</h3>
+      <p>Local queue sẽ sync lại khi online.</p>
+    </section>
+
+    <section class="card">
+      <h2>Changelog </h2>
+      <pre>Version: 1.0.0
+Date: 2026
+Author: Team Rivebase
+Summary:
+- Initial tournament workflow
+- Realtime leaderboard snapshot model</pre>
+    </section>
+
+    <section class="card">
+      <h2>Deployment Scope</h2>
+      <p>Hệ thống phù hợp cho:</p>
+      <ul>
+        <li>Club muốn digital hoá nhanh nhưng không đầu tư RFID.</li>
+        <li>Tournament 20-300 players.</li>
+        <li>Môi trường cần kiểm soát minh bạch nhưng vận hành linh hoạt.</li>
+      </ul>
+    </section>
+
+    <div class="footer">Rivebase Docs - Hand Counter Tournament</div>
   </main>
-
-  <footer>
-    <div class="container">
-      <div class="foot">
-        <div>© <span id="y"></span> <span id="footerCopy">Rivebase Docs Template.</span></div>
-        <div>
-          <a href="index.html" id="footerHome">Trang chủ</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-
-    const langViBtn = document.getElementById('langVi');
-    const langEnBtn = document.getElementById('langEn');
-
-    const i18n = {
-      vi: {
-        backHome: 'Trang chủ',
-        jumpTop: 'Bắt đầu',
-        heroTag: 'Template tài liệu kỹ thuật',
-        heroTitle: 'Rivebase Docs',
-        heroSub: 'Trang này là khung mẫu giống giao diện index để bạn điền nội dung kỹ thuật sau: quy trình, data model, guideline vận hành, troubleshooting.',
-        tocTitle: 'Mục lục',
-        overviewText: 'Mô tả mục tiêu sản phẩm, vai trò người dùng (Dealer/Floor/Owner), và luồng vận hành tổng quan.',
-        quickStartText: 'Checklist cài đặt nhanh: môi trường, biến cấu hình, quyền truy cập và bước kiểm tra đầu tiên.',
-        dataModelText: 'Định nghĩa các entity chính: tournament, table, seat, player, event log, leaderboard snapshot.',
-        apiText: 'Mô tả endpoint/event quan trọng, payload mẫu, response mẫu và các mã lỗi thường gặp.',
-        securityText: 'Chiến lược phân quyền, audit log, chính sách xác thực và bảo vệ dữ liệu theo vai trò.',
-        troubleText: 'Danh sách sự cố phổ biến khi chạy tournament realtime và cách xử lý theo từng mức độ.',
-        changeText: 'Lưu lịch sử thay đổi tài liệu theo phiên bản để team dễ theo dõi cập nhật.',
-        footerCopy: 'Rivebase Docs Template.',
-        footerHome: 'Trang chủ'
-      },
-      en: {
-        backHome: 'Home',
-        jumpTop: 'Start',
-        heroTag: 'Technical docs template',
-        heroTitle: 'Rivebase Docs',
-        heroSub: 'This page is a template matching the index style, ready for your technical content: flows, data model, operation guidelines, and troubleshooting.',
-        tocTitle: 'Table of contents',
-        overviewText: 'Describe product goals, user roles (Dealer/Floor/Owner), and the high-level operation flow.',
-        quickStartText: 'Quick setup checklist: environment, config variables, access permissions, and first validation steps.',
-        dataModelText: 'Define core entities: tournament, table, seat, player, event log, and leaderboard snapshot.',
-        apiText: 'Document key endpoints/events, sample payloads, sample responses, and common error codes.',
-        securityText: 'Outline role permissions, audit logging, authentication policy, and role-based data protection.',
-        troubleText: 'List common realtime tournament issues and the handling guide by severity.',
-        changeText: 'Track documentation updates by version so the team can follow all changes.',
-        footerCopy: 'Rivebase Docs Template.',
-        footerHome: 'Home'
-      }
-    };
-
-    function applyLanguage(lang){
-      const t = i18n[lang] || i18n.vi;
-      document.documentElement.lang = lang;
-      Object.keys(t).forEach((id) => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = t[id];
-      });
-      langViBtn.classList.toggle('active', lang === 'vi');
-      langEnBtn.classList.toggle('active', lang === 'en');
-      localStorage.setItem('rivebase-lang', lang);
-    }
-
-    langViBtn.addEventListener('click', () => applyLanguage('vi'));
-    langEnBtn.addEventListener('click', () => applyLanguage('en'));
-
-    const initialLang = localStorage.getItem('rivebase-lang') || 'vi';
-    applyLanguage(initialLang === 'en' ? 'en' : 'vi');
-  </script>
 </body>
 </html>
